@@ -1,0 +1,91 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { formatDate, publicUrl } from '../../utils';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { title, summary, date, kind, role, tags, cover, coverAlt, gif, video, repo, links } = project.data;
+const { Content } = await render(project);
+const hasMedia = Boolean(gif || video);
+---
+
+<Base title={title} description={summary} image={cover.src}>
+  <article class="wrap project">
+    <a class="back" href="/">&larr; All projects</a>
+
+    <h1>{title}</h1>
+    <p class="lede">{summary}</p>
+
+    <ul class="meta">
+      <li><strong>Date</strong> {formatDate(date)}</li>
+      {role && <li><strong>Role</strong> {role}</li>}
+      {kind && <li><strong>Type</strong> {kind}</li>}
+    </ul>
+
+    {
+      (repo || links.length > 0) && (
+        <div class="actions">
+          {repo && (
+            <a class="button" href={repo} rel="noopener">
+              View code on GitHub
+            </a>
+          )}
+          {links.map((link) => (
+            <a class="button secondary" href={link.url} rel="noopener">
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+
+    <Image class="cover" src={cover} alt={coverAlt} widths={[640, 960, 1280, 1600]} sizes="(min-width: 68rem) 66rem, 100vw" loading="eager" />
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {
+      hasMedia && (
+        <section class:list={['media', { two: Boolean(gif && video) }]} aria-label="Demos">
+          {gif && (
+            <figure>
+              <img src={publicUrl(gif.src)} alt={gif.alt} loading="lazy" decoding="async" />
+              <figcaption>{gif.alt}</figcaption>
+            </figure>
+          )}
+          {video && (
+            <figure>
+              <video controls preload="metadata" playsinline poster={video.poster ? publicUrl(video.poster) : undefined}>
+                <source src={publicUrl(video.src)} type="video/mp4" />
+                <p>
+                  Your browser can't play this video. <a href={publicUrl(video.src)}>Download it</a>.
+                </p>
+              </video>
+              {video.caption && <figcaption>{video.caption}</figcaption>}
+            </figure>
+          )}
+        </section>
+      )
+    }
+
+    {
+      tags.length > 0 && (
+        <div class="badges tags">
+          {tags.map((tag) => (
+            <span class="badge">{tag}</span>
+          ))}
+        </div>
+      )
+    }
+  </article>
+</Base>

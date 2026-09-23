@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../utils';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, summary, cover, coverAlt, kind, tags, date } = project.data;
+---
+
+<a class="card" href={`/projects/${project.id}/`}>
+  <Image src={cover} alt={coverAlt} widths={[400, 640, 900]} sizes="(min-width: 68rem) 21rem, (min-width: 40rem) 45vw, 100vw" loading="lazy" />
+  <div class="card-body">
+    <h2>{title}</h2>
+    <p>{summary}</p>
+    <div class="badges">
+      {kind && <span class="badge kind">{kind}</span>}
+      <span class="badge">{formatDate(date)}</span>
+      {tags.map((tag) => <span class="badge">{tag}</span>)}
+    </div>
+  </div>
+</a>
