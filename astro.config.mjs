@@ -7,7 +7,7 @@ import { defineConfig } from 'astro/config';
 //
 // TODO: replace YOUR_GITHUB_USERNAME with your GitHub username (lowercase).
 export default defineConfig({
-  site: 'https://YOUR_GITHUB_USERNAME.github.io',
+  site: 'https://maexerich.github.io',
   // /projects/ has no page of its own: the project list is the home page.
   redirects: { '/projects': '/' },
 });

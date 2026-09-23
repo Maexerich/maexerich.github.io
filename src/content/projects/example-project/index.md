@@ -15,7 +15,7 @@ video:
   src: projects/example-project/demo.mp4
   poster: projects/example-project/demo-poster.jpg
   caption: The same animation as a short video (6 s, no sound).
-repo: https://github.com/YOUR_GITHUB_USERNAME/example-project
+repo: https://github.com/maexerich/radar
 links:
   - label: Project report (PDF)
     url: https://example.com/report.pdf

@@ -5,6 +5,6 @@ export const SITE = {
   // One line that says who you are. Keep it factual.
   tagline: 'Mechanical engineer (ETH Zurich) - robotics, perception and state estimation.',
   description: 'Projects by Max Greiner: robotics, estimation, embedded systems and software.',
-  github: 'https://github.com/YOUR_GITHUB_USERNAME',
-  linkedin: 'https://www.linkedin.com/in/YOUR_LINKEDIN_HANDLE/',
+  github: 'https://github.com/maexerich',
+  linkedin: 'https://www.linkedin.com/in/max-greiner01/',
 } as const;
