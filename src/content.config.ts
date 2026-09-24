@@ -4,7 +4,7 @@ import { z } from 'astro/zod';
 
 /**
  * One folder per project:  src/content/projects/<slug>/index.md
- * Put the cover picture (and any pictures used in the text) next to index.md.
+ * Put the cover picture (and any inline/media images) next to index.md.
  * GIFs and videos go to public/projects/<slug>/ (see GUIDE.md, section 7).
  */
 const projects = defineCollection({
@@ -28,15 +28,24 @@ const projects = defineCollection({
       // The picture shown on the card and at the top of the page.
       cover: image(),
       coverAlt: z.string(),
-      // Optional: animated GIF and video. Paths are relative to public/.
-      gif: z.object({ src: z.string(), alt: z.string() }).optional(),
-      video: z
-        .object({
-          src: z.string(),
-          poster: z.string().optional(),
-          caption: z.string().optional(),
-        })
-        .optional(),
+      // Optional: any number of images, GIFs and videos, in the order they should appear,
+      // shown together below the text in a responsive grid. "image" (like `cover`) is a path
+      // relative to this index.md and gets resized/optimised automatically; "gif" and "video"
+      // are paths relative to public/ (see GUIDE.md, section 7).
+      media: z
+        .array(
+          z.discriminatedUnion('type', [
+            z.object({ type: z.literal('image'), src: image(), alt: z.string(), caption: z.string().optional() }),
+            z.object({ type: z.literal('gif'), src: z.string(), alt: z.string(), caption: z.string().optional() }),
+            z.object({
+              type: z.literal('video'),
+              src: z.string(),
+              poster: z.string().optional(),
+              caption: z.string().optional(),
+            }),
+          ]),
+        )
+        .default([]),
       // Optional: link to the code. Leave out for private projects.
       repo: z.url().optional(),
       // Optional: link to a live demo / paper / report.

@@ -1,6 +1,6 @@
 ---
 title: Example Project
-summary: A placeholder project that shows every field the site supports - a cover picture, a GIF, a video and a link to the code.
+summary: A placeholder project that shows every field the site supports - a cover picture, a media gallery mixing a picture, a GIF and a video, and a link to the code.
 date: 2026-09-01
 featured: false
 kind: Learning project
@@ -8,13 +8,26 @@ role: Solo
 tags: [Python, Robotics, Estimation]
 cover: ./cover.png
 coverAlt: A blue trajectory curve ending in a yellow dot on a dark grid.
-gif:
-  src: projects/example-project/demo.gif
-  alt: Looping animation of the dot following the trajectory.
-video:
-  src: projects/example-project/demo.mp4
-  poster: projects/example-project/demo-poster.jpg
-  caption: The same animation as a short video (6 s, no sound).
+# `media` is a list, shown together below the text in a responsive grid, in this order.
+# Mix as many `image` / `gif` / `video` entries as the project needs - one picture, ten
+# pictures, a gif and two videos, whatever fits. Leave the list empty (or omit `media`
+# entirely) for a text-only project.
+media:
+  - type: video
+    src: projects/example-project/demo.mp4
+    poster: projects/example-project/demo-poster.jpg
+    caption: The same animation as a short video (6 s, no sound).
+  - type: image
+    src: ./extra-view.png
+    alt: A second still of the same trajectory plot, zoomed in on the endpoint.
+    caption: A closer look at the estimated endpoint.
+  - type: gif
+    src: projects/example-project/demo.gif
+    alt: Looping animation of the dot following the trajectory.
+  - type: video
+    src: projects/example-project/demo.mp4
+    poster: projects/example-project/demo-poster.jpg
+    caption: The same animation as a short video (6 s, no sound).
 repo: https://github.com/maexerich/radar
 links:
   - label: Project report (PDF)

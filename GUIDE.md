@@ -216,8 +216,7 @@ Occasionally: `site.config.ts`, `global.css`. Rarely: everything else.
 | `kind` | no | Short honest label, e.g. `Research`, `Learning project`, `Purpose-driven, AI-assisted` |
 | `role` | no | `Solo`, or what you personally did in a team |
 | `tags` | no | e.g. `[Python, ROS, Estimation]` |
-| `gif` | no | `src` (path inside `public/`) and `alt` text |
-| `video` | no | `src`, optional `poster`, optional `caption` (paths inside `public/`) |
+| `media` | no | A list of pictures, GIFs and/or videos, shown together in a grid below the text, in the order given (see below) |
 | `repo` | no | Link to the code. Leave it out for private projects |
 | `links` | no | Extra buttons: a list of `label` + `url` (report PDF, demo, ...) |
 
@@ -240,18 +239,28 @@ mkdir -p public/projects/sonar-slam
 2. Edit `src/content/projects/sonar-slam/index.md`: change the header fields and rewrite the text.
    Add `draft: true` while you are still writing.
 3. Replace `cover.png` with your own picture (16:9 works best, at least 1600 px wide; PNG or JPG).
-4. Optional media: put the files in `public/projects/sonar-slam/` and point to them in the header
-   **without a leading slash**:
+4. Optional media gallery: add a `media:` list to the header, one entry per picture/GIF/video, shown
+   together in a grid in the order given. Mix as many of each as the project needs (one picture, ten
+   pictures, a GIF and two videos, whatever fits) or leave the list out entirely for a text-only project.
+   - `type: image` — a picture next to `index.md`, resized automatically like `cover` (`src` has **no**
+     leading `projects/...`, just a relative path like `./demo.png`).
+   - `type: gif` / `type: video` — files placed in `public/projects/sonar-slam/`, referenced **without a
+     leading slash**.
    ```yaml
-   gif:
-     src: projects/sonar-slam/demo.gif
-     alt: What the animation shows.
-   video:
-     src: projects/sonar-slam/demo.mp4
-     poster: projects/sonar-slam/demo-poster.jpg
-     caption: What the video shows.
+   media:
+     - type: image
+       src: ./closeup.png
+       alt: Close-up of the sensor mount.
+     - type: gif
+       src: projects/sonar-slam/demo.gif
+       alt: What the animation shows.
+     - type: video
+       src: projects/sonar-slam/demo.mp4
+       poster: projects/sonar-slam/demo-poster.jpg
+       caption: What the video shows.
    ```
-   Delete the `gif:`, `video:`, `repo:` and `links:` blocks you do not need.
+   Every entry can also take an optional `caption` (shown under the media; for `image`/`gif` it falls
+   back to `alt` if omitted). Delete the `media:`, `repo:` and `links:` blocks you do not need.
 5. Preview with `npm run dev`, then publish:
    ```bash
    git add .

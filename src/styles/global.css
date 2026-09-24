@@ -132,16 +132,18 @@ h3 { font-size: 1.15rem; margin: 1.6rem 0 0.4rem; }
 .prose :not(pre) > code { background: var(--bg-soft); padding: 0.1em 0.35em; border-radius: 4px; }
 .prose blockquote { margin-inline: 0; padding-left: 1rem; border-left: 3px solid var(--border); color: var(--muted); }
 
-.media { margin-top: 2.2rem; display: grid; gap: 1.5rem; }
+.media {
+  margin-top: 2.2rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  align-items: start;
+}
 .media figure { margin: 0; }
 .media img, .media video { border-radius: var(--radius); border: 1px solid var(--border); width: 100%; background: #000; }
 .media figcaption { color: var(--muted); font-size: 0.92rem; margin-top: 0.5rem; }
 
 .tags { margin-top: 2rem; }
-
-@media (min-width: 52rem) {
-  .media.two { grid-template-columns: 1fr 1fr; align-items: start; }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }

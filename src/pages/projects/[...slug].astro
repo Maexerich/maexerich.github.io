@@ -13,9 +13,8 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, summary, date, kind, role, tags, cover, coverAlt, gif, video, repo, links } = project.data;
+const { title, summary, date, kind, role, tags, cover, coverAlt, media, repo, links } = project.data;
 const { Content } = await render(project);
-const hasMedia = Boolean(gif || video);
 ---
 
 <Base title={title} description={summary} image={cover.src}>
@@ -55,25 +54,27 @@ const hasMedia = Boolean(gif || video);
     </div>
 
     {
-      hasMedia && (
-        <section class:list={['media', { two: Boolean(gif && video) }]} aria-label="Demos">
-          {gif && (
+      media.length > 0 && (
+        <section class="media" aria-label="Demos">
+          {media.map((item) => (
             <figure>
-              <img src={publicUrl(gif.src)} alt={gif.alt} loading="lazy" decoding="async" />
-              <figcaption>{gif.alt}</figcaption>
+              {item.type === 'image' && (
+                <Image src={item.src} alt={item.alt} widths={[480, 800, 1200]} sizes="(min-width: 52rem) 33rem, 100vw" loading="lazy" />
+              )}
+              {item.type === 'gif' && <img src={publicUrl(item.src)} alt={item.alt} loading="lazy" decoding="async" />}
+              {item.type === 'video' && (
+                <video controls preload="metadata" playsinline poster={item.poster ? publicUrl(item.poster) : undefined}>
+                  <source src={publicUrl(item.src)} type="video/mp4" />
+                  <p>
+                    Your browser can't play this video. <a href={publicUrl(item.src)}>Download it</a>.
+                  </p>
+                </video>
+              )}
+              {(item.caption ?? (item.type !== 'video' ? item.alt : undefined)) && (
+                <figcaption>{item.caption ?? (item.type !== 'video' ? item.alt : undefined)}</figcaption>
+              )}
             </figure>
-          )}
-          {video && (
-            <figure>
-              <video controls preload="metadata" playsinline poster={video.poster ? publicUrl(video.poster) : undefined}>
-                <source src={publicUrl(video.src)} type="video/mp4" />
-                <p>
-                  Your browser can't play this video. <a href={publicUrl(video.src)}>Download it</a>.
-                </p>
-              </video>
-              {video.caption && <figcaption>{video.caption}</figcaption>}
-            </figure>
-          )}
+          ))}
         </section>
       )
     }
