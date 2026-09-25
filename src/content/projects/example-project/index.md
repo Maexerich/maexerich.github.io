@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Example Project
 summary: A placeholder project that shows every field the site supports - a cover picture, a media gallery mixing a picture, a GIF and a video, and a link to the code.
 date: 2026-09-01
