@@ -22,11 +22,9 @@ media:
 
 ## Elevator Pitch
 For safety, stairs should be illuminated in dark conditions.
-The currently installed light is an analog outlet timer, turning the light on/off at fixed times at 100% intensity always.
-
-To account for changing sunrise/sunset times, the schedule needs to be adjusted by hand.
-Because the light is either on or off, when complete darkness is present, very little light goes a long way and too high brightness is unnecessary and annoying.
-
+The currently installed light uses an analog outlet timer, turning the light on or off at fixed times.
+Adjusting the schedule requires physical changing of the outlet timer.
+Because the light is either on or off, when complete darkness is present, the high intensity of the light is unnecessary and annoying.
 
 This project makes use of the [Smart-Home Framework](/projects/smart-home-framework/) to enable software-based scheduling including intensity control, eliminating the need for physical adjustment of timers and increasing comfort with lower intensity in complete darkness.
 
