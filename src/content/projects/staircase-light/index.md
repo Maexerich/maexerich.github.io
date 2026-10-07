@@ -20,19 +20,27 @@ media:
     caption: Plot shows a 24h cycle of the light intensity, 0-100% on y-axis, with time along the x-axis.
 ---
 
-## Goal
-Illuminate stairs for safety reasons in dark conditions.
+## Elevator Pitch
+For safety, stairs should be illuminated in dark conditions.
+The currently installed light is an analog outlet timer, turning the light on/off at fixed times at 100% intensity always.
+
+To account for changing sunrise/sunset times, the schedule needs to be adjusted by hand.
+Because the light is either on or off, when complete darkness is present, very little light goes a long way and too high brightness is unnecessary and annoying.
+
+
+This project makes use of the [Smart-Home Framework](/projects/smart-home-framework/) to enable software-based scheduling including intensity control, eliminating the need for physical adjustment of timers and increasing comfort with lower intensity in complete darkness.
 
 ## Features
 - [x] Illuminate stairs 💡
-- [x] Hard-coded schedule for on/off (server-side)
-- [x] Intensity-based time-of-day schedule (server-side)
+- [x] Software schedule for on/off (server-side adjustments are software only)
+- [x] Time-of-day determines light intensity
 
 Ideas for future improvements:
-- [ ] Automatic sunrise/sunset schedule
-- [ ] Illumination based intensity control (e.g. using a light sensor & smart algorithm)
-- [ ] Motion based activation
+- [ ] Automatic sunrise/sunset schedule according to time of year
+- [ ] Illumination based intensity control (e.g. basing intensity of light on current measured outdoor light levels)
+- [ ] Motion based activation (e.g. only minimal light when no motion is detected, increase based on detected motion)
 
-## Methods
+## Skills
+- Breadboard prototyping (use of MOSFET switching module to switch 24V LED strip with 3V3 pin)
+- Automation logic in Node-RED (MQTT message handling, time-based scheduling)
 - ESP32 microcontroller with custom C++ firmware (see [Smart-Home Framework](/projects/smart-home-framework/))
-- Using 3V3 pin to power store-bought MOSFET-module to switch 24V LED strip
