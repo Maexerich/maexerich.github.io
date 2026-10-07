@@ -3,7 +3,7 @@
 export const SITE = {
   name: 'Max Greiner',
   // One line that says who you are. Keep it factual.
-  tagline: 'Mechanical engineer (ETH Zurich) - robotics, perception and state estimation.',
+  tagline: 'Mechanical engineer (ETH Zurich) - Focus: Machine Learning and Robotics',
   description: 'Projects by Max Greiner: robotics, estimation, embedded systems and software.',
   github: 'https://github.com/maexerich',
   linkedin: 'https://www.linkedin.com/in/max-greiner01/',
