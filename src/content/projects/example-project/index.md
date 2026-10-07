@@ -37,7 +37,24 @@ links:
 
 This page is the template for every project on the site. Copy the folder, change the text and swap the media. Delete this example once you have added your first real project.
 
-## Goal 🎯
+Typical structure:
+```
+## Elevator Pitch
+Problem statement (motivation) and the proposed solution (goal).
+
+## Key features
+- [x] something
+
+## Future features
+- [ ] to do
+
+## Skills
+- python
+
+< free text containing more details on the system >
+```
+
+## Elevator Pitch 🎯
 
 Say in two or three sentences what problem you wanted to solve and why. Be concrete: *"Estimate the pose of a mobile robot from wheel odometry and an IMU"* is better than *"Explore sensor fusion"*.
 

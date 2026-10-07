@@ -53,6 +53,12 @@ The framework is a flash-and-forget style firmware for ESP32 microcontrollers, w
 - [ ] Add firmware version to node status messages
 - [ ] Remove auto-reboot feature when 5 connection attempts to WiFi/MQTT fail. Keep queue of readings in the meantime.
 
+## Skills
+- C++ embedded programming on (ESP32) microcontrollers
+- FreeRTOS for task-based concurrent programming
+- MQTT and WiFi connectivity for IoT devices
+- PlatformIO (VSCode extension) for embedded development
+
 ## System
 A locally hosted server (Raspberry Pi 5) is the brains of the operation, receiving data from ESP32 and sending commands, all using MQTT.
 
