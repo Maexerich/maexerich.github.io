@@ -8,8 +8,8 @@ role: Solo
 tags: [Smart-Home, C++, Electronics, IoT, Prototyping]
 cover: projects/bathroom-light/bathroom_light_v2.mp4
 coverAlt: Bathroom illuminated by an indirect light attached to the bottom side of the sink cabinet.
-pageCover: ./bathroom_light_cover.jpg
-pageCoverAlt: Bathroom illuminated by an indirect light attached to the bottom side of the sink cabinet.
+# pageCover: ./bathroom_light_cover.jpg
+# pageCoverAlt: Bathroom illuminated by an indirect light attached to the bottom side of the sink cabinet.
 # `media` is a list, shown together below the text in a responsive grid, in this order.
 # Mix as many `image` / `gif` / `video` entries as the project needs - one picture, ten
 # pictures, a gif and two videos, whatever fits. Leave the list empty (or omit `media`
@@ -51,6 +51,8 @@ Furthermore, the bathroom is a high-humidity environment where mold can grow if 
 
 The solution is a motion triggered, illumination varying light and a temperature/humidity sensor to measure current conditions in the bathroom.
 Powered by the [Smart-Home Framework](/projects/smart-home-framework/), a node with a motion sensor and temperature & humidity sensor with a LED strip is installed in the bathroom.
+
+
 
 ## Key Features
 - [x] Light follows time-of-day intensity schedule when triggered by motion
