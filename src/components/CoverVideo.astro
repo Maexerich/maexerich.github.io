@@ -1,0 +1,86 @@
+---
+import { publicUrl } from '../utils';
+
+interface Props {
+  /** Path relative to public/, e.g. projects/<slug>/withFriction2.mp4 */
+  src: string;
+  /** Accessible description, used as the video's label. */
+  label: string;
+  /**
+   * "hover": card preview, muted and looping, plays while the card is hovered.
+   * "native": page video with the browser's own play/pause controls and sound.
+   */
+  mode: 'hover' | 'native';
+  class?: string;
+}
+
+const { src, label, mode, class: className } = Astro.props;
+---
+
+{
+  mode === 'hover' ? (
+    <video
+      class:list={['cover-video', 'cover-video-hover', className]}
+      src={publicUrl(src)}
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      role="img"
+      aria-label={label}
+      data-hover-video
+    />
+  ) : (
+    <video
+      class:list={['cover-video', 'cover-video-native', className]}
+      src={publicUrl(src)}
+      controls
+      playsinline
+      preload="metadata"
+      aria-label={label}
+    >
+      <p>
+        Your browser can't play this video. <a href={publicUrl(src)}>Download it</a>.
+      </p>
+    </video>
+  )
+}
+
+<script>
+  // Card previews: play a muted video while its card is hovered; pause and rewind on leave so
+  // the card rests on the first frame. Skipped for reduced-motion users.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  document.querySelectorAll<HTMLVideoElement>('video[data-hover-video]').forEach((video) => {
+    if (video.dataset.bound) return;
+    video.dataset.bound = 'true';
+
+    const target = video.closest<HTMLElement>('.card') ?? video;
+    target.addEventListener('mouseenter', () => {
+      if (reduceMotion.matches) return;
+      video.play().catch(() => {});
+    });
+    target.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
+</script>
+
+<style>
+  .cover-video {
+    display: block;
+    width: 100%;
+    background: var(--border);
+  }
+  /* Card preview: fixed 16:9 frame, cropped to fill. */
+  .cover-video-hover {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  /* Page video: keep the clip's own proportions so nothing is cropped. */
+  .cover-video-native {
+    height: auto;
+    background: #000;
+  }
+</style>

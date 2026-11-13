@@ -1,14 +1,24 @@
 ---
 draft: true
 title: Example Project
-summary: A placeholder project that shows every field the site supports - a cover picture, a media gallery mixing a picture, a GIF and a video, and a link to the code.
+summary: A placeholder project that shows every field the site supports - a card cover, a different picture for the project page, a media gallery mixing a picture, a GIF and a video, and a link to the code.
 date: 2026-09-01
 featured: false
 kind: Learning project
 role: Solo
 tags: [Python, Robotics, Estimation]
-cover: ./cover.png
-coverAlt: A blue trajectory curve ending in a yellow dot on a dark grid.
+# The project card's picture. Either:
+#   - an image next to this file (./cover.png), resized and optimised automatically, or
+#   - an .mp4 under public/ (projects/<slug>/demo.mp4), which plays muted while the card is hovered.
+#     Keep it short (a few seconds): it loops on hover.
+# Use H.264 video in an .mp4 container, which every browser plays.
+cover: projects/example-project/demo.mp4
+coverAlt: A dot following a trajectory curve, looping on hover.
+# Optional: a different picture or video for the top of the project page. Leave both lines out
+# to reuse `cover` on the page. An image is shown optimised; an .mp4 gets native play/pause
+# controls and sound, so a long clip works here.
+pageCover: ./cover.png
+pageCoverAlt: A blue trajectory curve ending in a yellow dot on a dark grid.
 # `media` is a list, shown together below the text in a responsive grid, in this order.
 # Mix as many `image` / `gif` / `video` entries as the project needs - one picture, ten
 # pictures, a gif and two videos, whatever fits. Leave the list empty (or omit `media`

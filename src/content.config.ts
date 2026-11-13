@@ -9,8 +9,10 @@ import { z } from 'astro/zod';
  */
 const projects = defineCollection({
   loader: glob({ pattern: '*/index.md', base: './src/content/projects' }),
-  schema: ({ image }) =>
-    z.object({
+  schema: ({ image }) => {
+    // An image next to index.md (e.g. ./cover.png), or an .mp4 under public/ (e.g. projects/<slug>/demo.mp4).
+    const coverMedia = z.union([image(), z.string().regex(/\.mp4$/i, 'cover video must be an .mp4 in public/')]);
+    return z.object({
       title: z.string(),
       // One sentence, shown on the project card and used as the page description.
       summary: z.string().max(200),
@@ -25,9 +27,14 @@ const projects = defineCollection({
       // Your role: "Solo" or what you personally did in a team.
       role: z.string().optional(),
       tags: z.array(z.string()).default([]),
-      // The picture shown on the card and at the top of the page.
-      cover: image(),
+      // The picture shown on the project card. An image, or an .mp4 that plays muted on hover.
+      cover: coverMedia,
       coverAlt: z.string(),
+      // Optional: a different picture or video for the top of the project page. An image, or an
+      // .mp4 shown with native play/pause controls. Leave out to reuse `cover` on the page.
+      pageCover: coverMedia.optional(),
+      // Optional: alt text for `pageCover`. Falls back to `coverAlt`.
+      pageCoverAlt: z.string().optional(),
       // Optional: any number of images, GIFs and videos, in the order they should appear,
       // shown together below the text in a responsive grid. "image" (like `cover`) is a path
       // relative to this index.md and gets resized/optimised automatically; "gif" and "video"
@@ -50,7 +57,8 @@ const projects = defineCollection({
       repo: z.url().optional(),
       // Optional: link to a live demo / paper / report.
       links: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
-    }),
+    });
+  },
 });
 
 export const collections = { projects };

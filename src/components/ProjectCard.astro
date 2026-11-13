@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '../utils';
+import CoverVideo from './CoverVideo.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -12,7 +13,13 @@ const { title, summary, cover, coverAlt, kind, tags, date } = project.data;
 ---
 
 <a class="card" href={`/projects/${project.id}/`}>
-  <Image src={cover} alt={coverAlt} widths={[400, 640, 900]} sizes="(min-width: 68rem) 21rem, (min-width: 40rem) 45vw, 100vw" loading="lazy" />
+  {
+    typeof cover === 'string' ? (
+      <CoverVideo src={cover} label={coverAlt} mode="hover" />
+    ) : (
+      <Image src={cover} alt={coverAlt} widths={[400, 640, 900]} sizes="(min-width: 68rem) 21rem, (min-width: 40rem) 45vw, 100vw" loading="lazy" />
+    )
+  }
   <div class="card-body">
     <h2>{title}</h2>
     <p>{summary}</p>
