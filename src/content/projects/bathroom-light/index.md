@@ -6,8 +6,10 @@ featured: true
 kind: Purpose-driven, Learning project
 role: Solo
 tags: [Smart-Home, C++, Electronics, IoT, Prototyping]
-cover: ./bathroom_light_cover.jpg
+cover: projects/bathroom-light/bathroom_light_v2.mp4
 coverAlt: Bathroom illuminated by an indirect light attached to the bottom side of the sink cabinet.
+pageCover: ./bathroom_light_cover.jpg
+pageCoverAlt: Bathroom illuminated by an indirect light attached to the bottom side of the sink cabinet.
 # `media` is a list, shown together below the text in a responsive grid, in this order.
 # Mix as many `image` / `gif` / `video` entries as the project needs - one picture, ten
 # pictures, a gif and two videos, whatever fits. Leave the list empty (or omit `media`
