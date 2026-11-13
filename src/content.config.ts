@@ -61,4 +61,40 @@ const projects = defineCollection({
   },
 });
 
-export const collections = { projects };
+/**
+ * One folder per thesis:  src/content/theses/<slug>/index.md
+ * Shown as tiles in the "Thesis" section of the home page.
+ */
+const theses = defineCollection({
+  loader: glob({ pattern: '*/index.md', base: './src/content/theses' }),
+  schema: ({ image }) => {
+    // An image next to index.md (e.g. ./cover.png), or an .mp4 under public/ (e.g. thesis/<slug>/demo.mp4).
+    const coverMedia = z.union([image(), z.string().regex(/\.mp4$/i, 'cover video must be an .mp4 in public/')]);
+    return z.object({
+      title: z.string(),
+      // One sentence, shown on the tile and used as the page description.
+      summary: z.string().max(200),
+      // Used for sorting (newest first). Format: YYYY-MM-DD or YYYY-MM.
+      date: z.coerce.date(),
+      // Hide the tile while you are still writing.
+      draft: z.boolean().default(false),
+      // Which degree or course this was for.
+      kind: z.enum(['Bachelor thesis', 'Semester project', "Master's thesis"]),
+      // Optional: where it was done, e.g. "ETH Zurich, IRIS Lab" or "CSIRO, Brisbane".
+      institution: z.string().optional(),
+      // Optional: the picture or video for the tile, like a project cover. An image next to
+      // index.md, or an .mp4 under public/ that plays muted on hover.
+      cover: coverMedia.optional(),
+      // Alt text for `cover` (also the video's label). Falls back to the title.
+      coverAlt: z.string().optional(),
+      tags: z.array(z.string()).default([]),
+      // Optional: the report PDF, shown inline on the thesis page. Path relative to public/,
+      // without a leading slash, e.g. thesis/<slug>/report.pdf.
+      pdf: z.string().optional(),
+      // Optional: links to the code, a poster, an external copy of the report, ...
+      links: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
+    });
+  },
+});
+
+export const collections = { projects, theses };

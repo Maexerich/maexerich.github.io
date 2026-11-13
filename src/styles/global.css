@@ -156,6 +156,14 @@ h3 { font-size: 1.15rem; margin: 1.6rem 0 0.4rem; }
 
 .tags { margin-top: 2rem; }
 
+/* ---------- thesis PDF viewer ---------- */
+.pdf { margin-block: 1.6rem; }
+.pdf iframe {
+  width: 100%; height: min(80vh, 60rem); min-height: 28rem;
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-soft);
+}
+.pdf p { margin: 0.6rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .card:hover { transform: none; }

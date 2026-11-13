@@ -1,0 +1,72 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { formatDate, publicUrl } from '../../utils';
+
+export async function getStaticPaths() {
+  const theses = await getCollection('theses', ({ data }) => !data.draft);
+  return theses.map((thesis) => ({
+    params: { slug: thesis.id },
+    props: { thesis },
+  }));
+}
+
+const { thesis } = Astro.props;
+const { title, summary, date, kind, institution, tags, links, pdf } = thesis.data;
+const { Content } = await render(thesis);
+---
+
+<Base title={title} description={summary}>
+  <article class="wrap project">
+    <a class="back" href="/#theses">&larr; All theses</a>
+
+    <h1>{title}</h1>
+    <p class="lede">{summary}</p>
+
+    <ul class="meta">
+      <li><strong>Date</strong> {formatDate(date)}</li>
+      <li><strong>Type</strong> {kind}</li>
+      {institution && <li><strong>Where</strong> {institution}</li>}
+    </ul>
+
+    {
+      links.length > 0 && (
+        <div class="actions">
+          {links.map((link) => (
+            <a class="button secondary" href={link.url} rel="noopener">
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {
+      pdf && (
+        <section class="pdf" aria-label="Thesis report">
+          {/* The browser's built-in PDF viewer. #view=FitH asks it to fit the page width at load.
+              Mobile browsers may not show it inline, hence the link. */}
+          <iframe src={`${publicUrl(pdf)}#view=FitH`} title={`${title}: report (PDF)`} loading="lazy"></iframe>
+          <p>
+            Can't see the report here? <a href={publicUrl(pdf)} rel="noopener">Open or download the PDF</a>.
+          </p>
+        </section>
+      )
+    }
+
+    {
+      tags.length > 0 && (
+        <div class="badges tags">
+          {tags.map((tag) => (
+            <span class="badge">{tag}</span>
+          ))}
+        </div>
+      )
+    }
+  </article>
+</Base>
