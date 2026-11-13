@@ -24,6 +24,48 @@ const theses = (await getCollection('theses', ({ data }) => !data.draft)).sort(
       <p>{SITE.tagline}</p>
     </section>
 
+    <section class="cv" aria-labelledby="about-heading">
+    {/*
+      <h2 id="about-heading">About</h2>
+      <p class="lede">Master's degree in Machine Learning and Robotics from ETH Zurich. 
+      Experience training and evaluating ML methods as a part of coursework as well as an 
+      applied project predicting ego-velocity from noisy radar doppler shifts.
+      Master's thesis was held in Australia at CSIRO, aimed at developing underwater
+      sonar SLAM.
+      <br> <br>
+      Searching for job opportunities to develop machine learning methods for
+      robotics, medical domain or other emerging fields.</p>
+
+      <h3>Experience</h3>
+      <ul class="cv-list">
+        <li><strong>R&D IoT Intern, Sensirion</strong> <span class="muted">2023–2025</span><p>One line.</p></li>
+      </ul>
+
+      <h3>Education</h3>
+      ...
+
+      <h3>Skills</h3>
+      <div class="badges"><span class="badge">Python</span>...</div>
+    */}
+    </section> 
+    
+    <section id="theses" aria-labelledby="theses-heading">
+      <h2 id="theses-heading" style="margin-top:1.5rem">Thesis</h2>
+      {
+        theses.length === 0 ? (
+          <p class="empty">No theses yet.</p>
+        ) : (
+          <ul class="grid">
+            {theses.map((thesis) => (
+              <li>
+                <ThesisCard thesis={thesis} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+
     <section aria-labelledby="projects-heading">
       <h2 id="projects-heading" style="margin-top:1.5rem">Projects</h2>
       {
